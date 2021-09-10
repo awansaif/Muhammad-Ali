@@ -1,16 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 import Moment from "react-moment";
-
-const Weather = () => {
-  const [data, setData] = useState("");
-  useEffect(() => {
-    fetch(
-      "https://api.openweathermap.org/data/2.5/weather?q=Multan&units=metric&appid=1a5eca88b0c2cb459728b38e85285c2e"
-    )
-      .then((res) => res.json())
-      .then((data) => setData(data));
-  }, []);
+const Weather = ({ data }) => {
   return (
     <View style={styles.weather}>
       <Text style={styles.city}>{data && data.name}</Text>
@@ -66,6 +57,7 @@ const styles = StyleSheet.create({
   heading: {
     fontSize: 40,
     color: "#E6D4D4",
+    fontWeight: "700",
     fontFamily: "poppins",
   },
   temp: {

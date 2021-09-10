@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import {
   ActivityIndicator,
   Image,
@@ -9,16 +9,14 @@ import {
   View,
 } from "react-native";
 import Header from "../../components/Header";
-import { useFonts } from "expo-font";
+import useFetch from "../../hooks/useFetch";
 
 const Profile = () => {
-  const [data, setData] = useState("");
-  const [refreshing, setRefreshing] = useState(false);
-  const [fontsLoaded] = useFonts({
-    poppins: require("../../assets/fonts/Poppins-Light.ttf"),
-  });
+  const { data, refreshing, setData, setRefreshing } = useFetch(
+    "https://jsonplaceholder.typicode.com/photos"
+  );
 
-  fetch = () => {
+  const onRefresh = () => {
     setRefreshing(true);
     fetch("https://jsonplaceholder.typicode.com/photos")
       .then((res) => res.json())
@@ -27,17 +25,18 @@ const Profile = () => {
         setRefreshing(false);
       });
   };
-
-  useEffect(() => {
-    fetch();
-  }, []);
-
-  const onRefresh = () => {
-    fetch();
-  };
-
-  if (!data || !fontsLoaded) {
-    return <ActivityIndicator />;
+  if (!data) {
+    return (
+      <View
+        style={{
+          flex: 1,
+          justifyContent: "center",
+          backgroundColor: "#373131",
+        }}
+      >
+        <ActivityIndicator color="#fff" size="large" />
+      </View>
+    );
   }
   return (
     <View style={styles.profile}>
@@ -117,7 +116,7 @@ const Profile = () => {
 const styles = StyleSheet.create({
   profile: {
     flex: 1,
-    backgroundColor: "#373131",
+    backgroundColor: "#222831",
   },
   content: {
     paddingVertical: 10,
@@ -163,6 +162,7 @@ const styles = StyleSheet.create({
   text: {
     fontSize: 18,
     color: "#fff",
+    fontFamily: "gothic",
   },
 });
 

@@ -31,6 +31,7 @@ const styles = StyleSheet.create({
     fontSize: 40,
     textAlign: "center",
     color: "#E6D4D4",
+    fontWeight: "700",
     fontFamily: "poppins",
   },
   time: {

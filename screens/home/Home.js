@@ -1,35 +1,28 @@
 import React, { useState } from "react";
-import {
-  StyleSheet,
-  View,
-  RefreshControl,
-  ScrollView,
-  ActivityIndicator,
-} from "react-native";
+import { StyleSheet, View, RefreshControl, ScrollView } from "react-native";
 import Time from "./Time";
 import Weather from "./Weather";
 import Quote from "./Quote";
 import Header from "../../components/Header";
-import { useFonts } from "expo-font";
-
-const wait = (timeout) => {
-  return new Promise((resolve) => setTimeout(resolve, timeout));
-};
+import useFetch from "../../hooks/useFetch";
 
 export default function Home() {
-  const [refreshing, setRefreshing] = useState(false);
+  const {
+    data: weather,
+    refreshing,
+    setRefreshing,
+  } = useFetch(
+    "https://api.openweathermap.org/data/2.5/weather?q=Multan&units=metric&appid=1a5eca88b0c2cb459728b38e85285c2e"
+  );
+
+  const { data: quote } = useFetch("https://quotes.rest/qod?language=en");
 
   const onRefresh = () => {
     setRefreshing(true);
-    wait(2000).then(() => setRefreshing(false));
+    setTimeout(() => {
+      setRefreshing(false);
+    }, 2000);
   };
-  const [fontsLoaded] = useFonts({
-    poppins: require("../../assets/fonts/Poppins-Light.ttf"),
-  });
-  if (!fontsLoaded) {
-    return <ActivityIndicator />;
-  }
-
   return (
     <View style={styles.home}>
       <Header />
@@ -47,8 +40,8 @@ export default function Home() {
       >
         <View style={styles.content}>
           <Time />
-          <Weather />
-          <Quote />
+          <Weather data={weather} />
+          <Quote quote={quote} />
         </View>
       </ScrollView>
     </View>
@@ -58,7 +51,7 @@ export default function Home() {
 const styles = StyleSheet.create({
   home: {
     flex: 1,
-    backgroundColor: "#373131",
+    backgroundColor: "#222831",
   },
   content: {
     marginTop: 5,
