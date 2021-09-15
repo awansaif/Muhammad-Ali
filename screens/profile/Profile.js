@@ -1,4 +1,5 @@
 import React from "react";
+import { useState } from "react";
 import {
   ActivityIndicator,
   Image,
@@ -9,21 +10,43 @@ import {
   View,
 } from "react-native";
 import Header from "../../components/Header";
-import useFetch from "../../hooks/useFetch";
 
 const Profile = () => {
-  const { data, refreshing, setData, setRefreshing } = useFetch(
-    "https://jsonplaceholder.typicode.com/photos"
-  );
+  const [refreshing, setRefreshing] = useState(false);
 
+  const data = [
+    {
+      abu: "https://res.cloudinary.com/awansaif/image/upload/v1631704138/abu_gaf66j.jpg",
+    },
+    {
+      saif: "https://res.cloudinary.com/awansaif/image/upload/v1631701994/WhatsApp_Image_2021-09-15_at_3.28.58_PM_txq1ts.jpg",
+    },
+    {
+      hamza:
+        "https://res.cloudinary.com/awansaif/image/upload/v1631702056/WhatsApp_Image_2021-09-15_at_3.27.28_PM_o3pqci.jpg",
+    },
+    {
+      ali: "https://res.cloudinary.com/awansaif/image/upload/v1631701946/WhatsApp_Image_2021-09-15_at_3.26.53_PM_ddbw9j.jpg",
+    },
+  ];
   const onRefresh = () => {
     setRefreshing(true);
-    fetch("https://jsonplaceholder.typicode.com/photos")
-      .then((res) => res.json())
-      .then((data) => {
-        setData(data);
-        setRefreshing(false);
-      });
+    const data = [
+      {
+        abu: "https://res.cloudinary.com/awansaif/image/upload/v1631704138/abu_gaf66j.jpg",
+      },
+      {
+        saif: "https://res.cloudinary.com/awansaif/image/upload/v1631701994/WhatsApp_Image_2021-09-15_at_3.28.58_PM_txq1ts.jpg",
+      },
+      {
+        hamza:
+          "https://res.cloudinary.com/awansaif/image/upload/v1631702056/WhatsApp_Image_2021-09-15_at_3.27.28_PM_o3pqci.jpg",
+      },
+      {
+        ali: "https://res.cloudinary.com/awansaif/image/upload/v1631701946/WhatsApp_Image_2021-09-15_at_3.26.53_PM_ddbw9j.jpg",
+      },
+    ];
+    setRefreshing(false);
   };
   if (!data) {
     return (
@@ -59,18 +82,19 @@ const Profile = () => {
               {data && (
                 <Image
                   source={{
-                    uri: data[0].thumbnailUrl,
+                    uri: data[0].abu,
                   }}
                   style={styles.image}
                 />
               )}
+
               <Text style={styles.name}>MIAN MUHAMMAD</Text>
             </View>
             <View style={styles.imageBox}>
               {data && (
                 <Image
                   source={{
-                    uri: data[1].thumbnailUrl,
+                    uri: data[1].saif,
                   }}
                   style={styles.image}
                 />
@@ -81,7 +105,7 @@ const Profile = () => {
               {data && (
                 <Image
                   source={{
-                    uri: data[2].thumbnailUrl,
+                    uri: data[2].hamza,
                   }}
                   style={styles.image}
                 />
@@ -92,7 +116,7 @@ const Profile = () => {
               {data && (
                 <Image
                   source={{
-                    uri: data[3].thumbnailUrl,
+                    uri: data[3].ali,
                   }}
                   style={styles.image}
                 />
@@ -133,8 +157,8 @@ const styles = StyleSheet.create({
   },
   image: {
     width: 150,
-    height: 150,
-    resizeMode: "contain",
+    height: 190,
+    resizeMode: "cover",
     borderRadius: 10,
     marginBottom: 10,
   },

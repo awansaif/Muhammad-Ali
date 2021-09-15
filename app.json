@@ -21,6 +21,7 @@
     },
     "android": {
      "package": "com.awan.saif",
+     "permissions": ["ACCESS_FINE_LOCATION","ACCESS_COARSE_LOCATION" ],
       "versionCode": 1,
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",

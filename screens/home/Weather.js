@@ -1,6 +1,7 @@
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 import Moment from "react-moment";
+
 const Weather = ({ data }) => {
   return (
     <View style={styles.weather}>

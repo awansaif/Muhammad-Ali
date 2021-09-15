@@ -1,7 +1,7 @@
 import React from "react";
 import Route from "./routes/Route";
 import { useFonts } from "expo-font";
-import { ActivityIndicator, View } from "react-native";
+import AppLoading from "expo-app-loading";
 
 const App = () => {
   const [fontsLoaded] = useFonts({
@@ -9,11 +9,7 @@ const App = () => {
     gothic: require("./assets/fonts/MS-Gothic.ttf"),
   });
   if (!fontsLoaded) {
-    return (
-      <View style={{ flex: 1, JustifyContent: "center" }}>
-        <ActivityIndicator color="#070707" />
-      </View>
-    );
+    return <AppLoading />;
   }
   return <Route />;
 };
